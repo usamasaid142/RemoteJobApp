@@ -1,13 +1,18 @@
 package com.example.remotejobapp.di
+import android.content.Context
 import android.util.Log
+import androidx.room.Room
 import com.example.remotejobapp.BuildConfig
 import com.example.remotejobapp.utils.Constants.BASE_URL
 import com.example.remotejobapp.api.ApiServices
+import com.example.remotejobapp.db.RemoteJobDataBase
+import com.example.remotejobapp.utils.Constants.Remotejob_database
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -112,5 +117,17 @@ object AppModule {
             .build()
             .create(ApiServices::class.java)
     }
+
+
+    @Singleton
+    @Provides
+    fun provideRunDatabse(
+        @ApplicationContext app: Context
+    )= Room.databaseBuilder(app,RemoteJobDataBase::class.java,Remotejob_database).build()
+
+    @Singleton
+    @Provides
+    fun provideRunDao(db:RemoteJobDataBase)= db.favJobDao()
+
 
 }

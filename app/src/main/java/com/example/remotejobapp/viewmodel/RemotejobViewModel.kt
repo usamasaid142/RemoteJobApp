@@ -16,6 +16,7 @@ import javax.inject.Inject
 class RemotejobViewModel @Inject constructor(private val repo:RemoteJobsRepository) :ViewModel(){
 
     val jobresponse=MutableLiveData<Resource<RemoteJobsREsponse>>()
+    val jobSearchresponse=MutableLiveData<Resource<RemoteJobsREsponse>>()
 
     fun getAlljobs()=viewModelScope.launch(Dispatchers.IO) {
 
@@ -28,6 +29,23 @@ class RemotejobViewModel @Inject constructor(private val repo:RemoteJobsReposito
         if(response.isSuccessful){
             response.body()?.let {
                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+
+    fun searchAlljobs(search:String)=viewModelScope.launch(Dispatchers.IO) {
+        jobSearchresponse.postValue(Resource.Loading())
+        val response=repo.getSearchJobs(search)
+        jobSearchresponse.postValue(handleSearchJobs(response))
+
+    }
+
+    private fun handleSearchJobs(response: Response<RemoteJobsREsponse>): Resource<RemoteJobsREsponse>? {
+        if (response.isSuccessful){
+            response.body()?.let {
+                return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())

@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.remotejobapp.adapter.RemoteJobAdapter
 import com.example.remotejobapp.databinding.RemoteJobfragmentBinding
 import com.example.remotejobapp.utils.Resource
@@ -20,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RemoteJobFragment : Fragment() {
 
- private lateinit var binding:RemoteJobfragmentBinding
+ private lateinit var binding: RemoteJobfragmentBinding
  private lateinit var remoteJobAdapter: RemoteJobAdapter
  private val viewModel:RemotejobViewModel by viewModels()
 
@@ -54,7 +53,6 @@ class RemoteJobFragment : Fragment() {
     private fun callback(){
         viewModel.jobresponse.observe(viewLifecycleOwner, Observer {
 
-        if (it!=null){
             when(it){
 
                 is Resource.Loading->{
@@ -70,7 +68,7 @@ class RemoteJobFragment : Fragment() {
                     hideprogressbar()
                 }
             }
-        }
+
 
         })
 

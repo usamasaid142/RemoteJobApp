@@ -14,7 +14,6 @@ import javax.inject.Inject
 class RemoteJobFavoriteViewmodel @Inject constructor(private val repo:RemoteJobFavoriteRepo):ViewModel() {
 
 
-
     fun insert(favoriteJob: FavoriteJob)=viewModelScope.launch(Dispatchers.IO) {
         repo.insert(favoriteJob)
     }
@@ -23,5 +22,5 @@ class RemoteJobFavoriteViewmodel @Inject constructor(private val repo:RemoteJobF
         repo.delete(favoriteJob)
     }
 
-    val allFavoriteJob: LiveData<FavoriteJob> = repo.getAllAavoriteJobs()
+    val allFavoriteJob: LiveData<List<FavoriteJob>> = repo.getAllAavoriteJobs()
 }

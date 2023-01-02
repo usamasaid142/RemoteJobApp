@@ -15,5 +15,5 @@ interface FavotiteDAO {
     @Delete
     suspend fun deleteFavorite(favoritejob:FavoriteJob)
     @Query(" select * from fav_job ORDER by id DESC ")
-    fun SearchFavoritejob():LiveData<FavoriteJob>
+    fun SearchFavoritejob():LiveData<List<FavoriteJob>>
 }

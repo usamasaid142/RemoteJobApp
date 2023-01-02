@@ -50,7 +50,6 @@ class DetailsViewsFragment : Fragment() {
     private fun setUpWebView() {
        binding.webviwew.apply {
            webViewClient= WebViewClient()
-
                currentjob.let {
                    it.url?.let { it1 -> loadUrl(it1) }
                }
